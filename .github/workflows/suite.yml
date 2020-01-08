@@ -17,3 +17,10 @@ jobs:
     steps:
       - name: Inspect Env
         run: printenv
+
+      - name: checkout/mikemimik/test-benchmark
+        uses: actions/checkout@v2
+
+      - name: Testing
+        run: |
+          ls -al
