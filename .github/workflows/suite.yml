@@ -24,3 +24,9 @@ jobs:
       - name: Testing
         run: |
           ls -al
+
+      - name: Dispatched Event
+        env:
+          TEST_GITHUB_EVENT: ${{ toJson(github.event) }}
+        run: |
+          echo "event info"
