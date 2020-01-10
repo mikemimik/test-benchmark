@@ -18,8 +18,21 @@ jobs:
       - name: Inspect Env
         run: printenv
 
+      # Checkout `this` repository
       - name: checkout/mikemimik/test-benchmark
         uses: actions/checkout@v2
+        with:
+          path: ${{ env.RUNNER_WORKSPACE }}
+
+      # Checkout repository from incoming dispatch request
+      - name: checkout/${{ github.event.client_payload.owner }}/${{ github.event.client_payload.repo }}
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.client_payload.owner }}/${{ github.event.client_payload.repo }}
+          ref: ${{ github.event.client_payload.commit_sha }}
+          token: ${{ secrets.DEPLOY_PAT }}
+          path: ${{ env.RUNNER_WORKSPACE }}
+          fetch-depth: 1
 
       - name: Testing
         run: |
