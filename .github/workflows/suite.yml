@@ -35,7 +35,14 @@ jobs:
           fetch-depth: 1
 
       - name: Testing
+        env:
+          WORKING_DIR: ${{ env.RUNNER_WORKSPACE }}
+          BENCHMARK_DIR: "test-benchmark"
+          CHECKOUT_DIR: ${{ github.event.client_payload.repo }}
         run: |
+          # Testing Information
+          printenv
+          cd "${RUNNER_WORKSPACE}"
           ls -al
 
       - name: Dispatched Event
